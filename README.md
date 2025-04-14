@@ -16,5 +16,4 @@ An AI-powered attendance system that uses facial recognition technology to mark 
 - **Frontend:** HTML, CSS, JavaScript (optional: Bootstrap for styling)
 - **Backend:** Python (Flask/Django)
 - **Libraries:** OpenCV, NumPy, Pandas, face_recognition
-- **Database:** SQLite / MySQL
 - **Others:** Git, GitHub, VS Code
