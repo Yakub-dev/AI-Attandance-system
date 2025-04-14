@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Attendance System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <h1>AI Attendance System</h1>
+    <button id="download-btn" class="download-btn" onclick="window.location.href='/attendance'">Download Attendance</button>
+  </header>
+
+  <main>
+    <section class="action-section">
+      <h2>Take Attendance</h2>
+      <button id="take-attendance">Take Attendance</button>
+      <div id="loading" class="hidden">Processing...</div>
+      <div id="result" class="hidden">
+        <h3></h3>
+        <pre id="output"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AI Attendance System MJCET</p>
+  </footer>
+
+  <script>
+    // Handle the "Take Attendance" button click
+    document.getElementById("take-attendance").addEventListener("click", async function () {
+      const loadingDiv = document.getElementById("loading");
+      const resultDiv = document.getElementById("result");
+      const outputDiv = document.getElementById("output");
+
+      // Clear previous results
+      resultDiv.classList.add("hidden");
+      outputDiv.textContent = "";
+
+      // Show loading indicator
+      loadingDiv.classList.remove("hidden");
+
+      try {
+        // Make a POST request to trigger the backend to take attendance
+        const response = await fetch("/take-attendance", {
+          method: "POST",
+        });
+
+        // Parse the response as JSON
+        const data = await response.json();
+
+        // Hide the loading indicator and display results
+        loadingDiv.classList.add("hidden");
+        resultDiv.classList.remove("hidden");
+
+        // Display the output message based on backend response
+        if (data.status === "success") {
+          outputDiv.textContent = data.output;
+        } else {
+          outputDiv.textContent = `Error: ${data.error}`;
+        }
+      } catch (error) {
+        loadingDiv.classList.add("hidden");
+        alert("An error occurred while taking attendance. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>

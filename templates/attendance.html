@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Files</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <h1>AI Attendance System</h1>
+    <button id="download-btn" class="download-btn" onclick="window.location.href='/'">Back to Home</button>
+  </header>
+
+  <main>
+    <section class="action-section">
+      <h2>Download Attendance Files</h2>
+      <div id="file-list">
+        <!-- List of CSV files -->
+        {% if files %}
+          <ul>
+            {% for file in files %}
+              <li>
+                <a href="{{ url_for('download_file', filename=file) }}" download>
+                  {{ file }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No attendance files available.</p>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AI Attendance System MJCET</p>
+  </footer>
+</body>
+</html>
